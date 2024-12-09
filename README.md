@@ -1,2 +1,2 @@
 # godot
-GDscript templates
+GDscript templates that I use
