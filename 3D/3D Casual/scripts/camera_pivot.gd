@@ -1,0 +1,18 @@
+extends Node3D
+
+@export var min_limit_x = -1
+@export var max_limit_x = 1
+@export var mouse_sensitivity := 0.005
+
+func rotate_from_vector(v: Vector2):
+	if v.length() == 0: return
+	rotation.y -= v.x
+	rotation.x -= v.y
+	rotation.x = clamp(rotation.x, min_limit_x, max_limit_x)
+
+func _unhandled_input(event: InputEvent) -> void:
+	var is_camera_motion := (
+		event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
+	)
+	if is_camera_motion:
+		rotate_from_vector(event.relative * mouse_sensitivity)
